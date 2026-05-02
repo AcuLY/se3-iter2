@@ -1,0 +1,45 @@
+# Node / TS
+node_modules/
+dist/
+build/
+.vite/
+coverage/
+*.tsbuildinfo
+.eslintcache
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Databases / runtime artifacts
+*.sqlite
+*.sqlite-journal
+*.db
+eval-platform/apps/api/data/
+
+# IDE / tooling
+.claude/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Output
+out/
+tmp/
