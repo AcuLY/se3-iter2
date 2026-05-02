@@ -1,0 +1,24 @@
+{
+  "name": "eval-platform",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm -ws --if-present run build",
+    "test": "npm -ws --if-present run test",
+    "dev": "concurrently -n api,web -c blue,magenta \"npm -w @ep/api run dev\" \"npm -w @ep/web run dev\"",
+    "lint": "npm -ws --if-present run lint",
+    "typecheck": "npm -ws --if-present run typecheck"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1",
+    "typescript": "^5.5.4"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
