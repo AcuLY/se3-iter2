@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import asyncio
+import io
 import json
 import sys
 from typing import Any
@@ -19,6 +20,25 @@ from .graph import run_agent
 from .llm import LLMClient
 from .state import AgentState
 from .tracing import TraceBus, TraceEvent
+
+
+# Normalize Windows console to UTF-8 so unicode glyphs render reliably.
+def _force_utf8_stdio() -> None:
+    for stream_name in ("stdout", "stderr"):
+        stream = getattr(sys, stream_name, None)
+        if stream is None:
+            continue
+        try:
+            stream.reconfigure(encoding="utf-8", errors="replace")  # type: ignore[attr-defined]
+        except Exception:  # noqa: BLE001
+            try:
+                buffer = getattr(stream, "buffer", None)
+                if buffer is not None:
+                    setattr(sys, stream_name,
+                            io.TextIOWrapper(buffer, encoding="utf-8", errors="replace",
+                                             line_buffering=True))
+            except Exception:  # noqa: BLE001
+                pass
 
 
 def _build_layout() -> Layout:
@@ -99,7 +119,7 @@ def _fmt_event(ev: TraceEvent) -> str:
 async def _run_cli(goal: str, emit_json: bool) -> AgentState:
     bus = TraceBus()
     llm = LLMClient()
-    console = Console()
+    console = Console(force_terminal=True, legacy_windows=False)
     events: list[TraceEvent] = []
     current_state: AgentState | None = None
 
@@ -153,6 +173,7 @@ async def _run_cli(goal: str, emit_json: bool) -> AgentState:
               help="Also emit a machine-readable JSON summary at the end.")
 def cli(goal: str, emit_json: bool):
     """Run the travel planning agent with live CLI visualization."""
+    _force_utf8_stdio()
     state = asyncio.run(_run_cli(goal, emit_json))
     if not state.final_itinerary:
         sys.exit(2)
