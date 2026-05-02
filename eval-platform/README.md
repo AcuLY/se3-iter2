@@ -32,6 +32,23 @@ npm run dev
 pip install ragas datasets   # 仅当评估任务勾选 ragas.* 指标时需要
 ```
 
+## 端到端联调
+
+如果还想跑一次"前后端 + agent 端"完整联调，先在两个独立终端启动 agent 与 api，再跑 smoke 脚本：
+
+```bash
+# Terminal 1 — 启动旅行 agent (默认 :8088)
+cd ../travel-agent && python -m travel_agent.server
+
+# Terminal 2 — 启动评估平台后端 (默认 :3001)
+cd eval-platform && npm run build && node apps/api/dist/server.js
+
+# Terminal 3 — 一次性跑通注册→数据集→任务→2 个 run→自定义指标→对比
+cd eval-platform && node scripts/smoke.mjs
+```
+
+`scripts/smoke.mjs` 也是非交互式的"线上回归"。任何前后端改动都可以用它快速验证。
+
 ## 核心特性
 
 - **任务管理**：CRUD + 状态机（draft → queued → running → done/failed）
