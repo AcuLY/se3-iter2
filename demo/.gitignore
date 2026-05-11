@@ -1,0 +1,19 @@
+# Generated video/audio files (too large for git)
+recordings/
+final/
+voiceover/
+subtitles/
+tmp_segments/
+merge-list.txt
+
+# Generated card videos
+assets/*.mp4
+assets/*.srt
+
+# Keep the HTML template
+!assets/cli-terminal.html
+!assets/screenshot-*.png
+
+# npm
+node_modules/
+package-lock.json

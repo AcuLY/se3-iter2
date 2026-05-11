@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><style>
+body { margin:0; background:#1a1a2e; color:#e0e0e0; font-family:'Menlo','Courier New',monospace; font-size:14px; padding:24px; line-height:1.6; }
+.prompt { color:#22c55e; }
+.cmd { color:#fbbf24; }
+.output { color:#94a3b8; }
+.highlight { color:#60a5fa; }
+.warn { color:#f97316; }
+.success { color:#22c55e; }
+.header { color:#a78bfa; font-size:16px; margin-bottom:16px; }
+.divider { color:#475569; }
+.section { margin: 8px 0; }
+</style></head><body>
+<div class="header">SE-3 Iter2 — Travel Agent CLI Demo</div>
+
+<div class="section">
+<div><span class="prompt">$ </span><span class="cmd">cd travel-agent && source .venv/bin/activate</span></div>
+<div><span class="prompt">$ </span><span class="cmd">python -m travel_agent.main --goal "杭州3天，预算3000，偏好美食"</span></div>
+</div>
+
+<div class="divider">──────────────────────────────────────────────</div>
+<div class="section">
+<div class="warn">[LangGraph] Initializing agent with Plan-and-Execute + ReAct + Reflexion</div>
+<div class="output">[Config] model=gpt-4o-mock, max_iterations=3, reflexion_enabled=true</div>
+<div class="output">[Config] tools: search_attractions, search_restaurants, budget_calculator, weather_forecast</div>
+</div>
+
+<div class="divider">──────────────────────────────────────────────</div>
+<div class="section">
+<div class="highlight">══════ Phase 1: Plan-and-Execute ══════</div>
+<div class="output">[Plan] Generating travel plan for: 杭州3天，预算3000，偏好美食</div>
+<div class="output">[Plan] Step 1: Research top attractions and food spots in Hangzhou</div>
+<div class="output">[Plan] Step 2: Create day-by-day itinerary with budget allocation</div>
+<div class="output">[Plan] Step 3: Optimize route and timing for efficiency</div>
+<div class="output">[Plan] Step 4: Validate budget constraints and preferences</div>
+</div>
+
+<div class="divider">──────────────────────────────────────────────</div>
+<div class="section">
+<div class="highlight">══════ Phase 2: ReAct Execution ══════</div>
+<div class="output">[ReAct] Thought: I need to find the best food spots first</div>
+<div class="output">[ReAct] Action: search_restaurants(query="杭州特色美食", budget="人均100")</div>
+<div class="output">[ReAct] Observation: Found 12 restaurants. Top: 楼外楼、知味观、外婆家、龙井草堂、新白鹿</div>
+<div class="output">[ReAct] Thought: Now search for attractions near West Lake</div>
+<div class="output">[ReAct] Action: search_attractions(query="杭州西湖周边景点", type="自然风光")</div>
+<div class="output">[ReAct] Observation: Found 8 attractions. Top: 西湖十景、灵隐寺、龙井茶园、九溪烟树</div>
+<div class="output">[ReAct] Thought: Calculate budget distribution</div>
+<div class="output">[ReAct] Action: budget_calculator(total=3000, days=3, food_ratio=0.4)</div>
+<div class="output">[ReAct] Observation: Food: ¥1200, Transport: ¥300, Attractions: ¥600, Hotel: ¥900</div>
+</div>
+
+<div class="divider">──────────────────────────────────────────────</div>
+<div class="section">
+<div class="highlight">══════ Phase 3: Reflexion ══════</div>
+<div class="output">[Reflexion] Reviewing generated itinerary for quality...</div>
+<div class="output">[Reflexion] Check 1: Budget ¥2800/3000 ✓ (under budget)</div>
+<div class="output">[Reflexion] Check 2: Food preferences satisfied: 6/6 meals ✓</div>
+<div class="output">[Reflexion] Check 3: Natural scenery included: West Lake, Longjing ✓</div>
+<div class="output">[Reflexion] Check 4: Route optimization: minimal backtracking ✓</div>
+<div class="success">[Reflexion] All checks passed! Itinerary is ready.</div>
+</div>
+
+<div class="divider">──────────────────────────────────────────────</div>
+<div class="section">
+<div class="highlight">════════════ 最终行程方案 ════════════</div>
+<div class="highlight">Day 1: 西湖环湖深度游 + 楼外楼午餐</div>
+<div class="output">  上午: 断桥残雪 → 白堤 → 孤山 → 西泠印社</div>
+<div class="output">  午餐: 楼外楼 (西湖醋鱼¥88、龙井虾仁¥68)</div>
+<div class="output">  下午: 花港观鱼 → 雷峰塔 → 南宋御街</div>
+<div class="output">  晚餐: 知味观 (小笼包¥28、猫耳朵¥18)</div>
+<div class="output">  住宿: 西湖边民宿 ¥280</div>
+<div class="highlight">Day 2: 灵隐寺禅修 + 龙井茶园体验</div>
+<div class="output">  上午: 灵隐寺(飞来峰) → 北高峰</div>
+<div class="output">  午餐: 龙井草堂 (龙井虾仁¥78、叫花鸡¥58)</div>
+<div class="output">  下午: 龙井村品茶 → 九溪烟树徒步</div>
+<div class="output">  晚餐: 外婆家 (茶香鸡¥38、麻婆豆腐¥22)</div>
+<div class="output">  住宿: 同上 ¥280</div>
+<div class="highlight">Day 3: 宋城千古情 + 河坊街美食</div>
+<div class="output">  上午: 宋城景区 → 千古情演出(11:00)</div>
+<div class="output">  午餐: 宋城内特色小吃 (片儿川¥15、葱包桧¥10)</div>
+<div class="output">  下午: 河坊街 → 胡庆余堂 → 南宋御街</div>
+<div class="output">  晚餐: 新白鹿 (蛋黄鸡翅¥32、糖醋排骨¥38)</div>
+<div class="output">  住宿: 同上 ¥280</div>
+</div>
+
+<div class="divider">──────────────────────────────────────────────</div>
+<div class="section">
+<div class="success">✓ 总预算: ¥2,760 / ¥3,000 | 节余: ¥240</div>
+<div class="success">✓ 美食体验: 6/6 餐均含杭州特色菜</div>
+<div class="success">✓ 自然风光: 西湖、龙井茶园、九溪烟树</div>
+<div class="success">✓ 总用时: 2.3s (Mock Mode)</div>
+</div>
+<div><span class="prompt">$ </span></div>
+</body></html>
